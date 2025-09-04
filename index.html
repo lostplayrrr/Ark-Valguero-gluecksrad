@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Valguero Glücksrad</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; background: #1e293b; color: #f1f5f9; }
+  h1 { margin-top: 20px; }
+  #wheelCanvas { margin: 20px auto; display: block; background: #334155; border-radius: 50%; }
+  button {
+    padding: 10px 20px; font-size: 18px; border: none; border-radius: 8px;
+    cursor: pointer; margin-top: 10px; background: #0ea5e9; color: white;
+  }
+  button:disabled { background: #475569; cursor: not-allowed; }
+  #result { margin-top: 20px; font-size: 22px; font-weight: bold; }
+  .common { color: #d1d5db; }      /* Grau */
+  .uncommon { color: #22c55e; }    /* Grün */
+  .rare { color: #3b82f6; }        /* Blau */
+  .epic { color: #a855f7; }        /* Lila */
+  .legendary { color: gold; text-shadow: 0 0 10px #ffd700; } /* Gold */
+</style>
+</head>
+<body>
+<h1>Valguero Glücksrad 🎡</h1>
+<canvas id="wheelCanvas" width="600" height="600"></canvas>
+<button id="spinBtn">Spin!</button>
+<p>Spins übrig heute: <span id="spinsLeft"></span></p>
+<div id="result"></div>
+
+<script>
+// Ressourcenliste
+const resources = [
+  "Holz","Stroh","Stein","Feuerstein","Metall","Metallbarren","Kristall","Obsidian",
+  "Öl","Perlen","Schwarze Perlen","Silizium-Perlen","Schwefel","Salz","Honig","Pilze",
+  "Beeren","Samen","Fasern","Leder","Keratin","Chitin","Seide","Pelz","Rohes Fleisch",
+  "Rohes Fischfleisch","Rohes Filet","Rohes Filet Fisch","Rohes Hammelfleisch",
+  "Rohes Hammelfleisch Prime","Organisches Polymer","Polymer","Zementpaste",
+  "Achatina-Paste","Schießpulver","Sprengpulver","Silizium"
+];
+
+// Segmente: 100, 1000, 2000 (keine 5000er) + Jackpot
+let wheelSegments = [];
+resources.forEach(r => {
+  wheelSegments.push({resource:r, amount:100, rarity:"common"});
+  wheelSegments.push({resource:r, amount:1000, rarity:"uncommon"});
+  wheelSegments.push({resource:r, amount:2000, rarity:"rare"});
+});
+// Jackpot
+wheelSegments.push({resource:"RessourceDino", amount:10000, rarity:"legendary"});
+
+// Segmente zufällig mischen
+wheelSegments = wheelS
